@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
@@ -22,9 +23,9 @@ public class Restapi {
         this.serwis = serwis;
     }
 
-    @GetMapping("calendar")
-    public File getCalendarEvents() throws IOException {
-        return serwis.getCalendar();
+    @GetMapping("calendar/{year}/{month}")
+    public Map<String, String> getCalendarEvents(@PathVariable String year, @PathVariable String month) throws IOException {
+        return serwis.getCalendar(year,month);
     }
 
 }
