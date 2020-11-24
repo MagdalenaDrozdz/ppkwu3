@@ -47,7 +47,7 @@ public class Serwis {
             VEvent event = new VEvent();
             event.setSummary(map.get(key));
             System.out.println("Key:" + key + "Value:" + map.get(key)) ;
-            day.set(y,  m , key);
+            day.set(y,  m - 1 , key);
             event.setDateStart(day.getTime());
             event.setDateEnd(day.getTime());
             iCal.addEvent(event);
