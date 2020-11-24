@@ -1,9 +1,12 @@
 package com.example.demo.serwis;
 
+import biweekly.Biweekly;
+import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,6 +25,7 @@ public class Serwis {
         Calendar day = Calendar.getInstance();
         int m = Integer.parseInt(month);
         int y = Integer.parseInt(year);
+        ICalendar iCal =  new  ICalendar ();
 
         document = Jsoup.connect("http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + month + "&lang=1").get();
 
@@ -38,10 +42,14 @@ public class Serwis {
             VEvent event = new VEvent();
             event.setSummary(map.get(key));
             System.out.println("Key:" + key + "Value:" + map.get(key)) ;
-            day.set(y,  m, key);
+            day.set(y,  m , key);
             event.setDateStart(day.getTime());
             event.setDateEnd(day.getTime());
+            iCal.addEvent(event);
         }
+
+        File calendar = new File("Calendar_"+month+"_"+year+".ics");
+        Biweekly.write(iCal).go(calendar);
 
         return map;
     }
