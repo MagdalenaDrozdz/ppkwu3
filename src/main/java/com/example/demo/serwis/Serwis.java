@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.util.*;
 
 import org.jsoup.nodes.Document;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @org.springframework.stereotype.Service
 
 
 public class Serwis {
-    public Map<Integer, String> getCalendar(String year, String month) throws IOException {
+    public ResponseEntity<Resource>getCalendar(String year, String month) throws IOException {
 
         Document document;
         Elements events, days;
@@ -26,6 +30,7 @@ public class Serwis {
         int m = Integer.parseInt(month);
         int y = Integer.parseInt(year);
         ICalendar iCal =  new  ICalendar ();
+        Resource resource;
 
         document = Jsoup.connect("http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + month + "&lang=1").get();
 
@@ -50,7 +55,10 @@ public class Serwis {
 
         File calendar = new File("Calendar_"+month+"_"+year+".ics");
         Biweekly.write(iCal).go(calendar);
+        resource = new FileSystemResource(calendar);
 
-        return map;
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("text/calendar"))
+                .body(resource);
     }
 }

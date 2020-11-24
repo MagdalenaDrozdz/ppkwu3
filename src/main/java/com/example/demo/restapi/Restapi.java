@@ -2,6 +2,7 @@ package com.example.demo.restapi;
 
 import com.example.demo.serwis.Serwis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class Restapi {
     }
 
     @GetMapping("calendar/{year}/{month}")
-    public Map<Integer, String> getCalendarEvents(@PathVariable String year, @PathVariable String month) throws IOException {
+    public ResponseEntity<Resource> getCalendarEvents(@PathVariable String year, @PathVariable String month) throws IOException {
         return serwis.getCalendar(year,month);
     }
 
