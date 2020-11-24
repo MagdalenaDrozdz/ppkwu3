@@ -1,6 +1,7 @@
 package com.example.demo.serwis;
 
 import biweekly.ICalendar;
+import biweekly.component.VEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -25,6 +26,9 @@ public class Serwis {
         Elements events, days;
         Map<String, String> map = new HashMap();
         int i;
+        Calendar day = Calendar.getInstance();
+        int m = Integer.parseInt(month);
+        int y = Integer.parseInt(year);
 
         document = Jsoup.connect("http://www.weeia.p.lodz.pl/pliki_strony_kontroler/kalendarz.php?rok=" + year + "&miesiac=" + month + "&lang=1").get();
 
@@ -35,6 +39,15 @@ public class Serwis {
             System.out.println(days.get(i).text());
             System.out.println(events.get(i).text());
             map.put(days.get(i).text(), events.get(i).text());
+        }
+
+        for(String key : map.keySet()) {
+            VEvent event = new VEvent();
+            event.setSummary(map.get(key));
+            System.out.println("Key:" + key + "Value:" + map.get(key)) ;
+            day.set(y,  m, Integer.parseInt(key));
+            event.setDateStart(day.getTime());
+            event.setDateEnd(day.getTime());
         }
 
         return map;
