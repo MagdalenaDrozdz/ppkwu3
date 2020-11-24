@@ -1,11 +1,15 @@
-# ppkwu3
- 
+# Mobilny Kalendarz WEEIA
+API, które generuje dla wybranego miesiąca kalendarz w formacie ICS/iCal dla kalendarza ze strony http://www.weeia.p.lodz.pl.
+
+# Zapytanie
 Podajemy rok i miesiąc jako parametry:
 ```
 /api/calendar/2020/10
 ```
-Dostajemy :
-```
-{"1":"Akcja Integracja Online","8":"Wielka Integracja WIP","9":"Wielka Integracja WIP","10":"Wielka Integracja WIP"}
-```
-mapę z wydarzeniem i dniem w którym się ono odbędzie.
+Należy pamiętać o tym, że  miesiące będacy jedną cyfrą należy poprzedzić cyfrą 0. Dla przykładu dla marca musimy podać 03.
+
+# Odpowiedź
+Odpowiedź to wygenerowany plik w formacie .ics, w którym zapisane sa wydarzenia z miesiąca i roku, które zostały podane jako parametry. Wydarzenia te zostały pobrane z kalenadarza ze strony http://www.weeia.p.lodz.pl. 
+
+
+
