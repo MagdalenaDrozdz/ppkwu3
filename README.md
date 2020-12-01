@@ -6,8 +6,8 @@ Podajemy rok i miesiąc jako parametry:
 ```
 /api/calendar/{year}/{month}
 ```
-*{year} - rok, dla którego chcemy wygnerować kalendarz
-*{month} - miesiąc, dla którego chcemy wygnerować kalendarz
+{year} - rok, dla którego chcemy wygnerować kalendarz,
+{month} - miesiąc, dla którego chcemy wygnerować kalendarz
 
 Przykład z właściwymi parametrami: 
 ```
